@@ -12,6 +12,7 @@ Output:
 """
 
 import json
+import re
 import shutil
 from html import escape
 from pathlib import Path
@@ -21,6 +22,34 @@ SITE = ROOT / "_site"
 
 # Folders that are never treated as event pages, even if they contain page.json
 _SKIP = frozenset({"_site", "_template", "scripts", "docs", ".github"})
+
+_LOGO_DIR = ROOT / "docs" / "assets" / "gh-logo"
+
+
+def _clean_svg(filename: str) -> str:
+    """Load an SVG and strip Inkscape/Sodipodi metadata for safe inline embedding."""
+    text = (_LOGO_DIR / filename).read_text(encoding="utf-8")
+    text = re.sub(r'<\?xml[^?]*\?>\n?', '', text)
+    text = re.sub(r'\s*<sodipodi:namedview\b[^>]*/>\n?', '', text, flags=re.DOTALL)
+    text = re.sub(r'\s+xmlns:(inkscape|sodipodi|svg)="[^"]*"', '', text)
+    text = re.sub(r'\s+inkscape:[a-zA-Z:-]+=(?:"[^"]*")', '', text)
+    text = re.sub(r'\s+sodipodi:[a-zA-Z:-]+=(?:"[^"]*")', '', text)
+    # Remove explicit dimensions from root <svg> so CSS can control sizing
+    def _strip_dims(m: re.Match) -> str:
+        s = re.sub(r'\s+width="[^"]*"', '', m.group())
+        return re.sub(r'\s+height="[^"]*"', '', s)
+    text = re.sub(r'<svg\b[^>]*>', _strip_dims, text, count=1)
+    return text.strip()
+
+
+_LOGO_LIGHT = _clean_svg("spatialai-lockup-blue.svg")
+_LOGO_DARK  = _clean_svg("spatialai-lockup-blue-dark.svg")
+_LOGO_HTML  = (
+    '    <div class="org-logo">\n'
+    f'      <div class="logo-light">{_LOGO_LIGHT}</div>\n'
+    f'      <div class="logo-dark">{_LOGO_DARK}</div>\n'
+    '    </div>\n'
+)
 
 # ── Icon library ──────────────────────────────────────────────────────────────
 # Inner SVG path data for 24×24 stroke icons (Feather icon style).
@@ -232,6 +261,13 @@ CSS = """\
     }
     .institution { font-size: 0.82rem; color: var(--text-muted); line-height: 1.45; }
     .institution strong { color: var(--text); font-weight: 600; }
+    .org-logo { margin-bottom: 1.25rem; }
+    .org-logo svg { height: 44px; width: auto; display: block; }
+    .logo-dark { display: none; }
+    @media (prefers-color-scheme: dark) {
+      .logo-light { display: none; }
+      .logo-dark { display: block; }
+    }
 """
 
 # ── HTML helpers ──────────────────────────────────────────────────────────────
@@ -306,6 +342,7 @@ def render_landing_page(config: dict, slug: str) -> str:
     body = (
         "  <main>\n"
         "    <header>\n"
+        + _LOGO_HTML +
         f'      <div class="badge">{escape(event)}</div>\n'
         f'      <h1>{_title_html(raw_title)}</h1>\n'
         f'      <p class="subtitle">{escape(subtitle)}</p>\n'
@@ -349,6 +386,7 @@ def render_hub(pages: list[tuple[str, dict]]) -> str:
     body = (
         "  <main>\n"
         "    <header>\n"
+        + _LOGO_HTML +
         '      <div class="badge">THD Spatial AI</div>\n'
         '      <h1>Link Hub</h1>\n'
         '      <p class="subtitle">Landing pages for conferences, events, and research projects.</p>\n'
