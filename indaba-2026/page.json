@@ -1,0 +1,34 @@
+{
+  "event": "Deep Learning Indaba 2026",
+  "title": "Beyond LP and MILP",
+  "subtitle": "Open-source frameworks for advanced optimization models in energy system planning — a review.",
+  "links": [
+    {
+      "category": "Profile",
+      "title": "LinkedIn",
+      "url": "https://www.linkedin.com/in/dimeth-nouicer/",
+      "description": "Connect with me on LinkedIn",
+      "icon": "linkedin"
+    },
+    {
+      "category": "Planning Tool",
+      "title": "EnerPlanET App",
+      "url": "https://enerplanet.th-deg.de/",
+      "description": "Regional planning tool for energy community analysis and scenario modelling",
+      "icon": "globe"
+    },
+    {
+      "category": "Source Code",
+      "title": "EnerPlanET",
+      "url": "https://github.com/enerplanet",
+      "description": "EnerPlanET organization on GitHub — source code for the EnerPlanET app and related tools",
+      "icon": "code"
+    }
+  ],
+  "institutions": [
+    {
+      "name": "Faculty of Applied Informatics",
+      "unit": "Technische Hochschule Deggendorf (THD), Germany"
+    }
+  ]
+}
