@@ -4,17 +4,24 @@
   "subtitle": "Data processing tool for classifying 3D city models into TABULA-compatible building typologies.",
   "links": [
     {
-      "category": "Contact",
+      "category": "Jay Ravani",
       "title": "LinkedIn",
       "url": "https://www.linkedin.com/in/jay-ravani/",
       "description": "Connect with Jay Ravani on LinkedIn.",
       "icon": "linkedin"
     },
     {
-      "category": "Contact",
+      "category": "Jay Ravani",
       "title": "Email",
       "url": "mailto:jaykumar.ravani@th-deg.de",
       "description": "Send an email to Jay Ravani.",
+      "icon": "envelope"
+    },
+    {
+      "category": "Javier Valdes",
+      "title": "Email",
+      "url": "mailto:javier.valdes@th-deg.de",
+      "description": "Send an email to Javier Valdes.",
       "icon": "envelope"
     },
     {
