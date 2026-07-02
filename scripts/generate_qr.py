@@ -2,9 +2,9 @@
 """
 Generate QR codes for all event pages.
 
-Reads every */page.json in the repository root and writes qr.png and qr.svg.
+Reads every events/*/page.json and writes qr.png and qr.svg.
 
-Default output: source event folder (e.g. egu-2026/qr.png) — suitable for
+Default output: source event folder (e.g. events/egu-2026/qr.png) — suitable for
 committing to the repository so presenters can download directly from GitHub.
 
 Pass --site-dir _site to write into the built site instead (used by deploy.yml).
@@ -40,8 +40,8 @@ except ImportError:
         "           or: pip install -r requirements.txt"
     )
 
-ROOT  = Path(__file__).resolve().parent.parent
-_SKIP = frozenset({"_site", "_template", "scripts", "docs", ".github"})
+ROOT       = Path(__file__).resolve().parent.parent
+EVENTS_DIR = ROOT / "events"
 
 _COLOR = "#1B3A6B"  # navy — matches the landing page palette
 
@@ -102,9 +102,9 @@ def main() -> None:
         )
 
     count = 0
-    for page_json in sorted(ROOT.glob("*/page.json")):
+    for page_json in sorted(EVENTS_DIR.glob("*/page.json")):
         slug = page_json.parent.name
-        if slug.startswith(("_", ".")) or slug in _SKIP:
+        if slug.startswith(("_", ".")):
             continue
 
         url = f"{site_url}/{slug}/"

@@ -12,8 +12,8 @@ Each page is defined by a single `page.json` file and deployed automatically to 
 
 ## Quick start
 
-1. Create a new folder named after your event slug (e.g. `egu-2027/`)
-2. Add a `page.json` file inside it — copy from `_template/page.json`
+1. Create a new folder named after your event slug under `events/` (e.g. `events/egu-2027/`)
+2. Add a `page.json` file inside it — copy from `events/_template/page.json`
 3. Fill in the event name, title, links, and institution
 4. Commit to `main` — the page is live within ~60 seconds
 
@@ -23,10 +23,11 @@ Full guide: [Add new page](https://thd-spatial-ai.github.io/linkhub/docs/add-a-p
 
 ```
 /
-├── egu-2026/           ← example event page
-│   └── page.json
-├── _template/
-│   └── page.json       ← copy this for each new page
+├── events/
+│   ├── egu-2026/       ← example event page
+│   │   └── page.json
+│   └── _template/
+│       └── page.json   ← copy this for each new page
 ├── scripts/
 │   └── generate.py     ← converts page.json files to HTML
 ├── docs/               ← MkDocs documentation source

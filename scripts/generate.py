@@ -8,7 +8,7 @@ Usage:
 Output:
     _site/             — directory ready for GitHub Pages deployment
     _site/index.html   — hub page listing all events
-    _site/{slug}/      — one subdirectory per page.json found in the repo root
+    _site/{slug}/      — one subdirectory per page.json found under events/
 """
 
 import json
@@ -19,9 +19,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SITE = ROOT / "_site"
-
-# Folders that are never treated as event pages, even if they contain page.json
-_SKIP = frozenset({"_site", "_template", "scripts", "docs", ".github"})
+EVENTS_DIR = ROOT / "events"
 
 _LOGO_DIR = ROOT / "docs" / "assets" / "gh-logo"
 
@@ -415,9 +413,9 @@ def main() -> None:
 
     pages: list[tuple[str, dict]] = []
 
-    for page_json in sorted(ROOT.glob("*/page.json")):
+    for page_json in sorted(EVENTS_DIR.glob("*/page.json")):
         slug = page_json.parent.name
-        if slug.startswith(("_", ".")) or slug in _SKIP:
+        if slug.startswith(("_", ".")):
             continue
 
         with open(page_json, encoding="utf-8") as f:

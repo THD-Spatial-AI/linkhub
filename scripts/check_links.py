@@ -22,7 +22,7 @@ from pathlib import Path
 
 SITE_URL = "https://thd-spatial-ai.github.io/linkhub"
 ROOT = Path(__file__).resolve().parent.parent
-_SKIP = frozenset({"_site", "_template", "scripts", "docs", ".github"})
+EVENTS_DIR = ROOT / "events"
 
 _HEADERS = {"User-Agent": "LinkHub-LinkChecker/1.0"}
 _TIMEOUT = 15
@@ -61,9 +61,9 @@ def check_url(url: str, label: str, require_html: bool = False) -> bool:
 def main() -> None:
     issues: list[str] = []
 
-    for page_json in sorted(ROOT.glob("*/page.json")):
+    for page_json in sorted(EVENTS_DIR.glob("*/page.json")):
         slug = page_json.parent.name
-        if slug.startswith(("_", ".")) or slug in _SKIP:
+        if slug.startswith(("_", ".")):
             continue
 
         with open(page_json, encoding="utf-8") as f:

@@ -30,15 +30,15 @@ Go to the repository page on GitHub. Make sure you are signed in.
 ## Step 2 — Create a new folder and config file
 
 1. Click **Add file** → **Create new file** (top-right area of the file list).
-2. In the filename box, type your slug, a forward slash, and `page.json`:
+2. In the filename box, type `events/`, your slug, a forward slash, and `page.json`:
 
     ```
-    egu-2027/page.json
+    events/egu-2027/page.json
     ```
 
     GitHub automatically creates the folder when you type the `/`.
 
-3. In the large text area below, paste the template content from `_template/page.json`:
+3. In the large text area below, paste the template content from `events/_template/page.json`:
 
 ```json
 {
@@ -151,7 +151,7 @@ The hub page at the root also updates automatically and now includes a card for 
 
 To change text, add a link, or fix a typo:
 
-1. Navigate to `<your-slug>/page.json` in the repository.
+1. Navigate to `events/<your-slug>/page.json` in the repository.
 2. Click the pencil icon (✏️) to edit.
 3. Make your changes.
 4. Commit — the page rebuilds in about 60 seconds.

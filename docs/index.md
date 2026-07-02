@@ -30,7 +30,7 @@ Your page appears at:
 https://thd-spatial-ai.github.io/<repo-name>/<your-slug>/
 ```
 
-For example, the EGU 2026 page lives at `.../egu-2026/`.
+For example, the EGU 2026 page lives at `.../egu-2026/` (its `page.json` source lives in `events/egu-2026/`).
 
 The hub page at the repo root lists all published pages automatically.
 
