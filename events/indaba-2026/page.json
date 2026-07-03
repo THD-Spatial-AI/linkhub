@@ -8,7 +8,8 @@
       "title": "LinkedIn",
       "url": "https://www.linkedin.com/in/dimeth-nouicer/",
       "description": "Connect with me on LinkedIn",
-      "icon": "linkedin"
+      "icon": "linkedin",
+      "type": "contact"
     },
     {
       "category": "Planning Tool",
@@ -22,7 +23,7 @@
       "title": "EnerPlanET",
       "url": "https://github.com/enerplanet",
       "description": "EnerPlanET organization on GitHub — source code for the EnerPlanET app and related tools",
-      "icon": "code"
+      "type": "repo"
     }
   ],
   "institutions": [

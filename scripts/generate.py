@@ -16,6 +16,7 @@ import re
 import shutil
 from html import escape
 from pathlib import Path
+from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parent.parent
 SITE = ROOT / "_site"
@@ -89,6 +90,30 @@ ICONS: dict[str, str] = {
     "link": (
         '<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>'
         '<path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>'
+    ),
+    "envelope": (
+        '<rect x="2" y="4" width="20" height="16" rx="2"/>'
+        '<path d="m22 6-10 7L2 6"/>'
+    ),
+    "linkedin": (
+        '<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>'
+        '<rect x="2" y="9" width="4" height="12"/>'
+        '<circle cx="4" cy="4" r="2"/>'
+    ),
+    "phone": (
+        '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6'
+        ' 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81'
+        'a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45'
+        'c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/>'
+    ),
+    "orcid": (
+        '<circle cx="12" cy="12" r="9"/>'
+        '<line x1="8.5" y1="8" x2="8.5" y2="16"/>'
+        '<circle cx="8.5" cy="6" r="0.6" fill="currentColor" stroke="none"/>'
+        '<path d="M12 8h1.5a4 4 0 0 1 0 8H12z"/>'
+    ),
+    "gitlab": (
+        '<path d="M12 21 3 9l3-7h2l1 4 3 3 3-3 1-4h2l3 7z"/>'
     ),
     "paper": (
         '<path d="M12 20h9"/>'
@@ -239,6 +264,62 @@ CSS = """\
       color: var(--text-muted);
       padding: 0.5rem 0 0.1rem;
     }
+    .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 0.25rem;
+    }
+    .contact-chip {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      box-shadow: var(--shadow);
+      text-decoration: none;
+      transition: box-shadow 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+    }
+    .contact-chip:hover, .contact-chip:focus-visible {
+      border-color: var(--amber);
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+      outline: none;
+    }
+    .contact-chip svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--navy);
+      fill: none;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    @media (prefers-color-scheme: dark) { .contact-chip svg { stroke: var(--amber); } }
+    .pub-card { align-items: flex-start; }
+    .pub-title-link { text-decoration: none; color: inherit; }
+    .pub-title-link:hover .card-title { color: var(--amber); }
+    .pub-abstract {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-top: 0.4rem;
+    }
+    .pub-doi {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: var(--amber);
+      text-decoration: none;
+      margin-top: 0.6rem;
+    }
+    .pub-doi:hover { text-decoration: underline; }
     footer {
       width: 100%;
       max-width: 560px;
@@ -292,6 +373,65 @@ def _card_html(link: dict) -> str:
     )
 
 
+_REPO_ICON_HOSTS = {
+    "github.com": "github",
+    "gitlab.com": "gitlab",
+}
+
+
+def _detect_repo_icon(url: str) -> str:
+    """Infer a source-code hosting icon from the URL's hostname."""
+    host = urlparse(url).netloc.lower()
+    for suffix, name in _REPO_ICON_HOSTS.items():
+        if host == suffix or host.endswith("." + suffix):
+            return name
+    return "link"
+
+
+def _contact_chip_html(link: dict) -> str:
+    url   = escape(link["url"])
+    title = escape(link.get("title", ""))
+    icon  = icon_svg(link.get("icon", "link"))
+    return (
+        f'    <a class="contact-chip" href="{url}" target="_blank" rel="noopener noreferrer" '
+        f'title="{title}" aria-label="{title}">\n'
+        f'      {icon}\n'
+        f'    </a>\n'
+    )
+
+
+def _publication_card_html(link: dict) -> str:
+    url      = escape(link["url"])
+    title    = escape(link["title"])
+    desc     = escape(link.get("description", ""))
+    abstract = escape(link.get("abstract", ""))
+    doi      = link.get("doi", "").strip()
+    icon     = icon_svg(link.get("icon", "paper"))
+
+    abstract_html = f'        <p class="pub-abstract">{abstract}</p>\n' if abstract else ""
+    doi_html = ""
+    if doi:
+        doi_url = escape(f"https://doi.org/{doi}")
+        doi_html = (
+            f'        <a class="pub-doi" href="{doi_url}" target="_blank" rel="noopener noreferrer">'
+            f'DOI: {escape(doi)}</a>\n'
+        )
+
+    return (
+        f'    <div class="card pub-card">\n'
+        f'      <div class="card-icon">{icon}</div>\n'
+        f'      <div class="card-body">\n'
+        f'        <a class="pub-title-link" href="{url}" target="_blank" rel="noopener noreferrer">\n'
+        f'          <div class="card-title">{title}</div>\n'
+        f'        </a>\n'
+        f'        <div class="card-desc">{desc}</div>\n'
+        + abstract_html
+        + doi_html +
+        f'      </div>\n'
+        f'    </div>\n'
+    )
+
+
 def _institution_html(inst: dict) -> str:
     name = escape(inst.get("name", ""))
     unit = escape(inst.get("unit", ""))
@@ -332,8 +472,24 @@ def render_landing_page(config: dict, slug: str) -> str:
     cards = ""
     for cat, cat_links in categories.items():
         cards += f'    <div class="section-label">{escape(cat)}</div>\n'
-        for link in cat_links:
-            cards += _card_html(link)
+
+        contact_links = [l for l in cat_links if l.get("type") == "contact"]
+        other_links   = [l for l in cat_links if l.get("type") != "contact"]
+
+        if contact_links:
+            cards += '    <div class="contact-row">\n'
+            for link in contact_links:
+                cards += _contact_chip_html(link)
+            cards += '    </div>\n'
+
+        for link in other_links:
+            link_type = link.get("type")
+            if link_type == "publication":
+                cards += _publication_card_html(link)
+            elif link_type == "repo" and "icon" not in link:
+                cards += _card_html({**link, "icon": _detect_repo_icon(link["url"])})
+            else:
+                cards += _card_html(link)
 
     inst_html = "".join(_institution_html(i) for i in institutions)
 

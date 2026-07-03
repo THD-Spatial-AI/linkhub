@@ -24,9 +24,12 @@ Each item in `links` becomes one card on the page.
 |---|---|---|
 | `category` | Yes | A short label shown above a group of cards. Cards with the same category are grouped together. Example: `"Source Code"`, `"Web App"`, `"Dataset"` |
 | `title` | Yes | The card heading. Example: `"EnerPlanET App"` |
-| `url` | Yes | The full URL the card links to. Must start with `https://`. |
+| `url` | Yes | The full URL the card links to. Must start with `https://` (or `mailto:` / `tel:`). |
 | `description` | No | One sentence shown in smaller text below the title. |
-| `icon` | No | Icon name (see table below). Defaults to `link` if omitted. |
+| `icon` | No | Icon name (see table below). Defaults to `link` if omitted. For `type: "repo"` links, the icon is auto-detected from the URL (GitHub/GitLab) if omitted. |
+| `type` | No | Changes how the card is laid out. See **Link types** below. Defaults to a standard card. |
+| `abstract` | No | Only used by `type: "publication"`. A short abstract shown below the description. |
+| `doi` | No | Only used by `type: "publication"`. A bare DOI (e.g. `10.1000/xyz123`) rendered as a separate "DOI:" link to `https://doi.org/<doi>`. |
 
 ### Available icons
 
@@ -35,13 +38,59 @@ Each item in `links` becomes one card on the page.
 | `globe` | Web apps, live tools |
 | `code` | Source code, scripts |
 | `github` | GitHub repositories |
+| `gitlab` | GitLab repositories |
 | `table` | Data tables, spreadsheets |
 | `document` | Papers, reports, PDFs |
 | `paper` | Preprints, publications |
 | `data` | Datasets, databases |
 | `map` | Maps, geospatial tools |
 | `tool` | CLI tools, utilities |
+| `envelope` | Email addresses |
+| `linkedin` | LinkedIn profiles |
+| `phone` | Phone numbers |
+| `orcid` | ORCID researcher IDs |
 | `link` | General links (default) |
+
+### Link types (`type`)
+
+By default, every link renders as a full-width card. Setting `type` on a link changes its layout:
+
+| `type` | Layout | Extra fields used |
+|---|---|---|
+| *(omitted)* | Standard card — icon, title, description, arrow. | — |
+| `contact` | Small round icon chip. All `contact` links in the same category are grouped into one row (good for email, LinkedIn, phone, ORCID). | — |
+| `repo` | Same as the standard card, but the icon is auto-detected from the URL host (`github.com` → GitHub icon, `gitlab.com` → GitLab icon) unless `icon` is set explicitly. | — |
+| `publication` | Card with the title as the clickable link, plus an optional abstract paragraph and a DOI badge below the description. | `abstract`, `doi` |
+
+Example — a contact row plus a publication card:
+
+```json
+{
+  "category": "Jay Ravani",
+  "title": "LinkedIn",
+  "url": "https://www.linkedin.com/in/jay-ravani/",
+  "description": "Connect with Jay Ravani on LinkedIn.",
+  "icon": "linkedin",
+  "type": "contact"
+},
+{
+  "category": "Jay Ravani",
+  "title": "Email",
+  "url": "mailto:jay.ravani@th-deg.de",
+  "description": "Send an email to Jay Ravani.",
+  "icon": "envelope",
+  "type": "contact"
+},
+{
+  "category": "Publication",
+  "title": "BuEM × EnerPlanET",
+  "url": "https://doi.org/10.1000/xyz123",
+  "description": "EGU General Assembly 2026 abstract.",
+  "abstract": "Integrating a building energy model with a regional planning tool for energy community analysis.",
+  "doi": "10.1000/xyz123",
+  "type": "publication"
+}
+```
 
 ---
 

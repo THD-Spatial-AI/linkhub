@@ -8,35 +8,38 @@
       "title": "LinkedIn",
       "url": "https://www.linkedin.com/in/jay-ravani/",
       "description": "Connect with Jay Ravani on LinkedIn.",
-      "icon": "linkedin"
+      "icon": "linkedin",
+      "type": "contact"
     },
     {
       "category": "Jay Ravani",
       "title": "Email",
       "url": "mailto:jaykumar.ravani@th-deg.de",
       "description": "Send an email to Jay Ravani.",
-      "icon": "envelope"
+      "icon": "envelope",
+      "type": "contact"
     },
     {
       "category": "Javier Valdes",
       "title": "Email",
       "url": "mailto:javier.valdes@th-deg.de",
       "description": "Send an email to Javier Valdes.",
-      "icon": "envelope"
+      "icon": "envelope",
+      "type": "contact"
     },
     {
       "category": "Source Code",
       "title": "City2TABULA",
       "url": "https://github.com/THD-Spatial-AI/city2tabula",
       "description": "Source code and documentation.",
-      "icon": "github"
+      "type": "repo"
     },
     {
       "category": "Source Code",
       "title": "citydb-tool",
       "url": "https://github.com/3dcitydb/citydb-tool",
       "description": "3D City Database source code and documentation.",
-      "icon": "github"
+      "type": "repo"
     }
   ],
   "institutions": [

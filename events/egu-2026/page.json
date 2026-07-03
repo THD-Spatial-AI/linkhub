@@ -7,8 +7,10 @@
       "category": "Conference",
       "title": "Abstract",
       "url": "https://meetingorganizer.copernicus.org/EGU26/EGU26-5363.html",
-      "description": "Integration of a building energy model with a regional planning tool for energy communities analysis",
-      "icon": "paper"
+      "description": "EGU General Assembly 2026",
+      "abstract": "Integration of a building energy model with a regional planning tool for energy communities analysis",
+      "icon": "paper",
+      "type": "publication"
     },
     {
       "category": "Planning Tool",
@@ -22,21 +24,21 @@
       "title": "BuEM",
       "url": "https://github.com/SomadSahoo/buem",
       "description": "Building Energy Model — source code and documentation",
-      "icon": "code"
+      "type": "repo"
     },
     {
       "category": "Source Code",
       "title": "City2TABULA",
       "url": "https://github.com/THD-Spatial-AI/city2tabula",
       "description": "City data processing tool — generates TABULA-compatible building typology inputs",
-      "icon": "code"
+      "type": "repo"
     },
     {
       "category": "Source Code",
       "title": "EnerPlanET",
       "url": "https://github.com/enerplanet",
       "description": "EnerPlanET organization on GitHub — source code for the EnerPlanET app and related tools",
-      "icon": "code"
+      "type": "repo"
     }
   ],
   "institutions": [
