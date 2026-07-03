@@ -4,11 +4,19 @@
   "subtitle": "Open-source frameworks for advanced optimization models in energy system planning — a review.",
   "links": [
     {
-      "category": "Profile",
+      "category": "Dimeth Nouicer",
       "title": "LinkedIn",
       "url": "https://www.linkedin.com/in/dimeth-nouicer/",
       "description": "Connect with me on LinkedIn",
       "icon": "linkedin",
+      "type": "contact"
+    },
+    {
+      "category": "Dimeth Nouicer",
+      "title": "Email",
+      "url": "mailto:dimeth.nouicer@th-deg.de",
+      "description": "Send me an email",
+      "icon": "envelope",
       "type": "contact"
     },
     {
