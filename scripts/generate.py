@@ -343,7 +343,8 @@ CSS = """\
     .institution { font-size: 0.82rem; color: var(--text-muted); line-height: 1.45; }
     .institution strong { color: var(--text); font-weight: 600; }
     .org-logo {
-      display: inline-block;
+      display: block;
+      width: fit-content;
       margin-bottom: 1.25rem;
       opacity: 1;
       transition: opacity 0.18s ease;
