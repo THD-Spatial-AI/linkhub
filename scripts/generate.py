@@ -43,11 +43,13 @@ def _clean_svg(filename: str) -> str:
 
 _LOGO_LIGHT = _clean_svg("spatialai-lockup-blue.svg")
 _LOGO_DARK  = _clean_svg("spatialai-lockup-blue-dark.svg")
+_LOGO_URL   = "https://github.com/THD-Spatial-AI"
 _LOGO_HTML  = (
-    '    <div class="org-logo">\n'
+    f'    <a class="org-logo" href="{_LOGO_URL}" target="_blank" rel="noopener noreferrer" '
+    'aria-label="THD Spatial AI on GitHub">\n'
     f'      <div class="logo-light">{_LOGO_LIGHT}</div>\n'
     f'      <div class="logo-dark">{_LOGO_DARK}</div>\n'
-    '    </div>\n'
+    '    </a>\n'
 )
 
 # ── Icon library ──────────────────────────────────────────────────────────────
@@ -340,7 +342,13 @@ CSS = """\
     }
     .institution { font-size: 0.82rem; color: var(--text-muted); line-height: 1.45; }
     .institution strong { color: var(--text); font-weight: 600; }
-    .org-logo { margin-bottom: 1.25rem; }
+    .org-logo {
+      display: inline-block;
+      margin-bottom: 1.25rem;
+      opacity: 1;
+      transition: opacity 0.18s ease;
+    }
+    .org-logo:hover, .org-logo:focus-visible { opacity: 0.75; outline: none; }
     .org-logo svg { height: 44px; width: auto; display: block; }
     .logo-dark { display: none; }
     @media (prefers-color-scheme: dark) {
