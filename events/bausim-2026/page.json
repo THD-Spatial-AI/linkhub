@@ -1,0 +1,44 @@
+{
+  "event": "BauSIM Conference 2026",
+  "title": "City2TABULA",
+  "subtitle": "Data processing tool for classifying 3D city models into TABULA-compatible building typologies.",
+  "links": [
+    {
+      "category": "Jay Ravani",
+      "title": "LinkedIn",
+      "url": "https://www.linkedin.com/in/jay-ravani/",
+      "description": "Connect with Jay Ravani on LinkedIn.",
+      "icon": "linkedin",
+      "type": "contact"
+    },
+    {
+      "category": "Jay Ravani",
+      "title": "Email",
+      "url": "mailto:jaykumar.ravani@th-deg.de",
+      "description": "Send an email to Jay Ravani.",
+      "icon": "envelope",
+      "type": "contact"
+    },
+    {
+      "category": "Javier Valdes",
+      "title": "Email",
+      "url": "mailto:javier.valdes@th-deg.de",
+      "description": "Send an email to Javier Valdes.",
+      "icon": "envelope",
+      "type": "contact"
+    },
+    {
+      "category": "Source Code",
+      "title": "City2TABULA",
+      "url": "https://github.com/THD-Spatial-AI/city2tabula",
+      "description": "Source code and documentation.",
+      "type": "repo"
+    }
+  ],
+  "institutions": [
+    {
+      "name": "BigGeoData & Spatial AI, Applied Informatics",
+      "unit": "Technische Hochschule Deggendorf (THD)"
+    }
+  ]
+}
