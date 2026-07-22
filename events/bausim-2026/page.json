@@ -33,6 +33,20 @@
       "url": "https://github.com/THD-Spatial-AI/city2tabula",
       "description": "Source code and documentation.",
       "type": "repo"
+    },
+    {
+      "category": "Energy Modelling Tool",
+      "title": "EnerPlanET App",
+      "url": "https://enerplanet.th-deg.de/",
+      "description": "Regional planning tool for energy community analysis and scenario modelling",
+      "icon": "globe"
+    },
+    {
+      "category": "Source Code",
+      "title": "EnerPlanET",
+      "url": "https://github.com/enerplanet",
+      "description": "EnerPlanET organization on GitHub — source code for the EnerPlanET app and related tools",
+      "type": "repo"
     }
   ],
   "institutions": [
